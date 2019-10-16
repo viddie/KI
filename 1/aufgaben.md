@@ -45,10 +45,10 @@
 
 Bot: https://www.cleverbot.com/
 
-Ich: Hi how are you.
-Bot: I'm good how about you.
-Ich: Good, my name is hannes, whats yours.
-Bot: I already told you, it's Faith.
+Ich: Hi how are you.  
+Bot: I'm good how about you.  
+Ich: Good, my name is hannes, whats yours.  
+Bot: I already told you, it's Faith.  
 
 Der Bot hat mir davor gar nichts gesagt, Test beendet.
 
