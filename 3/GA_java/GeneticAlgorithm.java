@@ -6,7 +6,6 @@ import java.util.Random;
 
 public class GeneticAlgorithm {
 	
-	private int n;
 	public int generation;
 	private Comparator<Individual> fitnessComparator = new Comparator<Individual>(){
 		@Override
@@ -19,12 +18,11 @@ public class GeneticAlgorithm {
 	public float[][] stats;
 	private Individual dummy;
 	
-	public GeneticAlgorithm(int pN, Individual dummy){
-		n = pN;
+	public GeneticAlgorithm(Individual dummy){
 		this.dummy = dummy;
 	}
 	
-	public void startSearch(int maxGenerations, int individualCount, int tournamentSize, float crossOdds, float mutationOdds){
+	public Individual startSearch(int maxGenerations, int individualCount, int tournamentSize, float crossOdds, float mutationOdds){
 		
 		
 		Individual[] individualPool = new Individual[individualCount];
@@ -76,12 +74,17 @@ public class GeneticAlgorithm {
 				newPool[i].mutate(mutationOdds);
 			}
 			
-			System.out.println("Generation done.");
+//			System.out.println("Generation done.");
 			
 			individualPool = newPool;
 		}
 		
 		System.out.println("Search stopped.");
+		
+		if(solution != null){
+			return solution;
+		}
+		return individualPool[0];
 	}
 	
 	public Individual tournamentSelect(Individual[] pool, int tournamentSize){
@@ -97,10 +100,10 @@ public class GeneticAlgorithm {
 	}
 	
 	public void doProgress(Individual[] pool){
-		System.out.println("Current generation: "+generation);
+//		System.out.println("Current generation: "+generation);
 		int bestFitness = pool[0].getFitness();
 		System.out.println("Best fitness: "+bestFitness);
-		System.out.println("Best solution:\n"+pool[0]+"\n\n");
+//		System.out.println("Best solution:\n"+pool[0]+"\n\n");
 		
 		int totalFitness = 0;
 		for(int i = 0; i < pool.length; i++){
@@ -108,7 +111,7 @@ public class GeneticAlgorithm {
 		}
 		float avgFitness = (float)totalFitness / pool.length;
 		
-		System.out.println("Average fitness: "+avgFitness);
+//		System.out.println("Average fitness: "+avgFitness);
 		
 		stats[generation][0] = bestFitness;
 		stats[generation][1] = avgFitness;

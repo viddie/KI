@@ -3,16 +3,37 @@ package de.vi_home.main;
 public class Starter {
 
 	public static void main(String[] args) {
+		startSudoku();
+	}
+	
+	public static void startSudoku(){
+		int n = 9;
+		int maxGenerations = 100000;
+		int individualCount = 100;
+		int tournamentSize = 5;
+		float mutationOdds = 0.01f;
+		float crossOdds = 0.6f;
+		
+		SudokuIndividual dummy = new SudokuIndividual(new int[n][n]);
+		
+		testIndividual(dummy);
+
+		GeneticAlgorithm ga = new GeneticAlgorithm(dummy);
+		SudokuIndividual si = (SudokuIndividual)ga.startSearch(maxGenerations, individualCount, tournamentSize, crossOdds, mutationOdds);
+		System.out.println("Best solution:\n"+si);
+	}
+	
+	public static void startNQueens(){
 		int n = 8;
 		int maxGenerations = 10000;
 		int individualCount = 100;
 		int tournamentSize = 2;
-		float mutationOdds = 0.001f;
+		float mutationOdds = 0.045f;
 		float crossOdds = 0.6f;
 		
 		NQueensIndividual dummy = new NQueensIndividual(new int[n]);
 
-		GeneticAlgorithm ga = new GeneticAlgorithm(n, dummy);
+		GeneticAlgorithm ga = new GeneticAlgorithm(dummy);
 		ga.startSearch(maxGenerations, individualCount, tournamentSize, crossOdds, mutationOdds);
 	}
 	
@@ -24,7 +45,7 @@ public class Starter {
 		float mutationOdds = 0.045f;
 		float crossOdds = 0.6f;
 		
-		GeneticAlgorithm ga = new GeneticAlgorithm(n, dummy);
+		GeneticAlgorithm ga = new GeneticAlgorithm(dummy);
 		
 		
 		System.out.println("Testing genetic algorithm with settings:");
@@ -95,11 +116,19 @@ public class Starter {
 		
 	}
 	
-	public static void fullPrint(NQueensIndividual a){
+	public static void fullPrint(Individual a){
 		a.resetFitness();
-		System.out.println("\n\nAgent: "+a.agentToString()+"\n");
+//		System.out.println("\n\nAgent: "+a.agentToString()+"\n");
 		System.out.println(a);
 		System.out.println("Fitness: "+a.getFitness());
+	}
+	
+	public static void testIndividual(Individual dummy){
+		Individual a = dummy.createRandomIndividual();
+		fullPrint(a);
+		System.out.println("\n\nNow mutating...");
+		a.mutate(0.01f);
+		fullPrint(a);
 	}
 	
 }

@@ -4,8 +4,12 @@ import java.util.Random;
 
 public class NQueensIndividual extends Individual {
 	
+	private int[] agent;
+	private int n;
+	
 	public NQueensIndividual(int[] pAgent){
-		super(pAgent);
+		agent = pAgent;
+		n = agent.length;
 	}
 	
 	public void mutate(float odds){
@@ -59,7 +63,13 @@ public class NQueensIndividual extends Individual {
 		fitness = -1;
 	}
 	
-	public NQueensIndividual[] crossoverWith(NQueensIndividual other, float crossOdds){
+	@Override
+	public Individual[] crossoverWith(Individual otherGen, float crossOdds){
+		if(!(otherGen instanceof NQueensIndividual)){
+			return null;
+		}
+		NQueensIndividual other = (NQueensIndividual)otherGen;
+		
 		Random r = new Random();
 		
 		NQueensIndividual thisChild = this.clone();
@@ -124,12 +134,6 @@ public class NQueensIndividual extends Individual {
 		
 		toRet = toRet.substring(0, toRet.length() - 2) + " ]";
 		return toRet;
-	}
-
-	@Override
-	public Individual[] crossoverWith(Individual other, float crossOdds) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
