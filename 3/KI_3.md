@@ -229,6 +229,22 @@ Average count of generations until at or below 2 fitness was found: 5.4018035
 ```
 
 
+##### Testergebnis #8 - Etwas geringere Chance auf Mutation
+
+```java
+float mutationOdds = 0.05f;
+int repeatAlgorithm = 1000;
+```
+
+Ergebnis:
+
+```
+Average count of generations until solution was found: 173.124
+Average count of generations until at or below 1 fitness was found: 18.410149
+Average count of generations until at or below 2 fitness was found: 3.7336683
+```
+
+
 
 
 
