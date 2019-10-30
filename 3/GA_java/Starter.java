@@ -7,12 +7,24 @@ public class Starter {
 		int maxGenerations = 10000;
 		int individualCount = 100;
 		int tournamentSize = 2;
-		float mutationOdds = 0.1f;
+		float mutationOdds = 0.001f;
 		float crossOdds = 0.6f;
 		
-		int repeatAlgorithm = 100;
+		NQueensIndividual dummy = new NQueensIndividual(new int[n]);
+
+		GeneticAlgorithm ga = new GeneticAlgorithm(n, dummy);
+		ga.startSearch(maxGenerations, individualCount, tournamentSize, crossOdds, mutationOdds);
+	}
+	
+	public static void performMultipleRuns(int repeatAlgorithm, Individual dummy) {
+		int n = 8;
+		int maxGenerations = 10000;
+		int individualCount = 100;
+		int tournamentSize = 2;
+		float mutationOdds = 0.045f;
+		float crossOdds = 0.6f;
 		
-		GeneticAlgorithm ga = new GeneticAlgorithm(n);
+		GeneticAlgorithm ga = new GeneticAlgorithm(n, dummy);
 		
 		
 		System.out.println("Testing genetic algorithm with settings:");
@@ -83,11 +95,11 @@ public class Starter {
 		
 	}
 	
-	public static void fullPrint(Individual a){
-		a.resetFitnessCalculation();
+	public static void fullPrint(NQueensIndividual a){
+		a.resetFitness();
 		System.out.println("\n\nAgent: "+a.agentToString()+"\n");
 		System.out.println(a);
-		System.out.println("Fitness: "+a.calculateFitness());
+		System.out.println("Fitness: "+a.getFitness());
 	}
 	
 }

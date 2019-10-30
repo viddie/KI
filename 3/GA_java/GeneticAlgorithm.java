@@ -11,23 +11,29 @@ public class GeneticAlgorithm {
 	private Comparator<Individual> fitnessComparator = new Comparator<Individual>(){
 		@Override
 		public int compare(Individual o1, Individual o2) {
-			return o1.calculateFitness() - o2.calculateFitness();
+			return o1.getFitness() - o2.getFitness();
 		}
 	};
 	
 	public Individual solution;
 	public float[][] stats;
+	private Individual dummy;
 	
-	public GeneticAlgorithm(int pN){
+	public GeneticAlgorithm(int pN, Individual dummy){
 		n = pN;
+		this.dummy = dummy;
 	}
 	
 	public void startSearch(int maxGenerations, int individualCount, int tournamentSize, float crossOdds, float mutationOdds){
+		
+		
 		Individual[] individualPool = new Individual[individualCount];
 		Random r = new Random();
 		
+		
+		
 		for(int i = 0; i < individualCount; i++){
-			individualPool[i] = Individual.createRandomIndividual(n);
+			individualPool[i] = dummy.createRandomIndividual();
 		}
 		
 		stats = new float[maxGenerations][];
@@ -42,8 +48,8 @@ public class GeneticAlgorithm {
 			
 			doProgress(individualPool);
 			
-			if(individualPool[0].calculateFitness() == 0){
-//				foundOptimum(individualPool[0]);
+			if(individualPool[0].getFitness() == 0){
+				foundOptimum(individualPool[0]);
 				solution = individualPool[0];
 				break;
 			}
@@ -70,12 +76,12 @@ public class GeneticAlgorithm {
 				newPool[i].mutate(mutationOdds);
 			}
 			
-//			System.out.println("Generation done.");
+			System.out.println("Generation done.");
 			
 			individualPool = newPool;
 		}
 		
-//		System.out.println("Search stopped.");
+		System.out.println("Search stopped.");
 	}
 	
 	public Individual tournamentSelect(Individual[] pool, int tournamentSize){
@@ -91,18 +97,18 @@ public class GeneticAlgorithm {
 	}
 	
 	public void doProgress(Individual[] pool){
-//		System.out.println("Current generation: "+generation);
-		int bestFitness = pool[0].calculateFitness();
-//		System.out.println("Best fitness: "+bestFitness);
-//		System.out.println("Best solution:\n"+pool[0]+"\n\n");
+		System.out.println("Current generation: "+generation);
+		int bestFitness = pool[0].getFitness();
+		System.out.println("Best fitness: "+bestFitness);
+		System.out.println("Best solution:\n"+pool[0]+"\n\n");
 		
 		int totalFitness = 0;
 		for(int i = 0; i < pool.length; i++){
-			totalFitness += pool[i].calculateFitness();
+			totalFitness += pool[i].getFitness();
 		}
 		float avgFitness = (float)totalFitness / pool.length;
 		
-//		System.out.println("Average fitness: "+avgFitness);
+		System.out.println("Average fitness: "+avgFitness);
 		
 		stats[generation][0] = bestFitness;
 		stats[generation][1] = avgFitness;
@@ -110,7 +116,7 @@ public class GeneticAlgorithm {
 	
 	public void foundOptimum(Individual solution){
 		System.out.println("\n\n==========\nFound a solution.");
-		System.out.println("Solution fitness: "+solution.calculateFitness());
+		System.out.println("Solution fitness: "+solution.getFitness());
 		System.out.println("Solution:\n"+solution);
 	}
 	
