@@ -2,11 +2,11 @@ package de.vi_home.main;
 
 import java.util.Scanner;
 
-public class MinMaxTicTacToe {
+public class MinMaxTicTacToeABP {
 	
 	public static int calls = 0;
 	
-	public MinMaxTicTacToe() {
+	public MinMaxTicTacToeABP() {
 		Scanner scan = new Scanner(System.in);
 		State state = new State();
 		
@@ -52,7 +52,7 @@ public class MinMaxTicTacToe {
 		
 
 		scan.close();
-		
+
 		System.out.println("Total calls: "+calls);
 	}
 	
@@ -61,7 +61,7 @@ public class MinMaxTicTacToe {
 		Move move = null;
 		for(Move successor : state.getLeftMoves()) {
 			state.doMove(successor, 1);
-			int val = minValue(state);
+			int val = minValue(state, Integer.MIN_VALUE, Integer.MAX_VALUE);
 			if(val >= value) {
 				value = val;
 				move = successor;
@@ -77,7 +77,7 @@ public class MinMaxTicTacToe {
 		Move move = null;
 		for(Move successor : state.getLeftMoves()) {
 			state.doMove(successor, -1);
-			int val = maxValue(state);
+			int val = maxValue(state, Integer.MIN_VALUE, Integer.MAX_VALUE);
 			if(val <= value) {
 				value = val;
 				move = successor;
@@ -88,30 +88,30 @@ public class MinMaxTicTacToe {
 		return move;
 	}
 	
-	public int maxValue(State state) {
+	public int maxValue(State state, int alpha, int beta) {
 		calls++;
 		
 		if(state.isTerminal()) {
 			return state.utility();
 		}
 		
-		if(state.getLeftMoves().size() == 6) {
-			state.printField("MAX with 6 turns left");
-		}
-		
-		
 		int value = Integer.MIN_VALUE;
 		
 		for(Move move : state.getLeftMoves()) {
 			state.doMove(move, 1);
-			value = Math.max(value, minValue(state));
+			value = Math.max(value, minValue(state, alpha, beta));
 			state.undoMove(move);
+			
+			if(value >= beta) {
+				return value;
+			}
+			alpha = Math.max(alpha, value);
 		}
 		
 		return value;
 	}
 	
-	public int minValue(State state) {
+	public int minValue(State state, int alpha, int beta) {
 		calls++;
 		
 		if(state.isTerminal()) {
@@ -122,8 +122,13 @@ public class MinMaxTicTacToe {
 		
 		for(Move move : state.getLeftMoves()) {
 			state.doMove(move, -1);
-			value = Math.min(value, maxValue(state));
+			value = Math.min(value, maxValue(state, alpha, beta));
 			state.undoMove(move);
+			
+			if(value <= alpha) {
+				return value;
+			}
+			beta = Math.min(beta, value);
 		}
 		
 		return value;

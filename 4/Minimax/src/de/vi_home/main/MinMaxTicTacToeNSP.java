@@ -2,11 +2,13 @@ package de.vi_home.main;
 
 import java.util.Scanner;
 
-public class MinMaxTicTacToe {
+public class MinMaxTicTacToeNSP {
+	
+	// ???
 	
 	public static int calls = 0;
 	
-	public MinMaxTicTacToe() {
+	public MinMaxTicTacToeNSP() {
 		Scanner scan = new Scanner(System.in);
 		State state = new State();
 		
@@ -25,26 +27,26 @@ public class MinMaxTicTacToe {
 			}
 			
 			
-			String turnsLeft = "";
-			for(Move m : state.getLeftMoves()) {
-				turnsLeft += m.getMoveID()+", ";
-			}
-			turnsLeft = turnsLeft.substring(0, turnsLeft.length()-2);
+//			String turnsLeft = "";
+//			for(Move m : state.getLeftMoves()) {
+//				turnsLeft += m.getMoveID()+", ";
+//			}
+//			turnsLeft = turnsLeft.substring(0, turnsLeft.length()-2);
+//			
+//			
+//			System.out.println("Feld eingeben ("+turnsLeft+"):");
+//			System.out.print("> ");
+//			
+//			int choice = scan.nextInt();
+//			
+//			Move selectedMove = null;
+//			for(Move m : state.getLeftMoves()) {
+//				if(m.getMoveID() == choice) {
+//					selectedMove = m;
+//				}
+//			}
 			
-			
-			System.out.println("Feld eingeben ("+turnsLeft+"):");
-			System.out.print("> ");
-			
-			int choice = scan.nextInt();
-			
-			Move selectedMove = null;
-			for(Move m : state.getLeftMoves()) {
-				if(m.getMoveID() == choice) {
-					selectedMove = m;
-				}
-			}
-			
-//			Move selectedMove = maxiMin(state);
+			Move selectedMove = maxiMin(state);
 			System.out.println("Turn "+(turn++)+": Player O places in "+selectedMove);
 			state.doMove(selectedMove, -1);
 			state.printField();
