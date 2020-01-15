@@ -1,0 +1,22 @@
+h(g(f(x,u)),f(g(A),f(A,A)),f(u,f(x,u))) und 
+h(g(v),v,f(y,z))
+-> v/f(x,u)
+
+h(g(f(x,u)),f(g(A),f(A,A)),f(u,f(x,u))) und 
+h(g(f(x,u)),f(x,u),f(y,z))
+-> x/g(A)
+
+h(g(f(g(A),u)),f(g(A),f(A,A)),f(u,f(g(A),u))) und 
+h(g(f(g(A),u)),f(g(A),u),f(y,z))
+-> u/f(A,A)
+
+h(g(f(g(A),f(A,A))),f(g(A),f(A,A)),f(f(A,A),f(g(A),f(A,A)))) und 
+h(g(f(g(A),f(A,A))),f(g(A),f(A,A)),f(y,z))
+-> y/f(A,A)
+
+h(g(f(g(A),f(A,A))),f(g(A),f(A,A)),f(f(A,A),f(g(A),f(A,A)))) und 
+h(g(f(g(A),f(A,A))),f(g(A),f(A,A)),f(f(A,A),z))
+-> z/f(g(A),f(A,A))
+
+h(g(f(g(A),f(A,A))),f(g(A),f(A,A)),f(f(A,A),f(g(A),f(A,A)))) und 
+h(g(f(g(A),f(A,A))),f(g(A),f(A,A)),f(f(A,A),f(g(A),f(A,A))))
